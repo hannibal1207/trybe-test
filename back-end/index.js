@@ -5,8 +5,7 @@ const bodyParser = require('body-parser');
 
 const { PORT } = process.env;
 
-const controllers = require('./controllers');
-const middlewares = require('./middlewares');
+const controllers = require('./controllers/taskController');
 
 const app = express();
 
@@ -21,9 +20,8 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/ping', controllers.ping);
-
-app.use(middlewares.error);
+app.post('/tasks', controllers.createTask);
+app.get('/tasks', controllers.getTask);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
