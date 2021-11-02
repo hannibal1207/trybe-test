@@ -22,6 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/tasks', controllers.createTask);
 app.get('/tasks', controllers.getTask);
+app.get('/tasks/:_id', controllers.getTasksById);
+app.put('/tasks/:_id', controllers.editTask);
+app.delete('/tasks/:_id', controllers.deleteTask);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
