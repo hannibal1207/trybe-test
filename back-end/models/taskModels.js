@@ -31,7 +31,8 @@ const editTask = async (_id, task) => {
       { $set: { task }
     },
   );
-  return edit;
+  console.log(edit, 'model')
+  return edit; 
 };
 
 const deleteTask = async (_id) => {
