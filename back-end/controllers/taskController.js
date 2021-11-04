@@ -32,5 +32,6 @@ const deleteTask = async (req, res) => {
   console.log(deleteTask);
   if(!deleteTask) return res.status(404).json({ message: 'id invalido' });
   res.status(200).json({ message: 'tarefa excluida com sucesso'});
-}
+};
+
 module.exports = { createTask, getTask, editTask, getTasksById, deleteTask };
