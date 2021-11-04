@@ -1,11 +1,12 @@
-const connection = require('./connection');
+const { connection } = require('./connection');
 const { ObjectID } = require('mongodb');
 
 const createList = async (task) => {
+  if (!task) return null;
   // const date = new Date();
   const db = await connection();
   const create = db.collection('tasks').insertOne(task);
-  return create;
+  return create ;
 };
 
 const getTask = async () => {
@@ -19,7 +20,7 @@ const getById = async (_id) => {
   const db = await connection();
   const findById = db.collection('tasks').findOne(ObjectID(_id));
   return findById;
-}
+};
 
 const editTask = async (_id, task) => {
   if(!ObjectID.isValid(_id)) return null;

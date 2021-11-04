@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Todo() {
+  useEffect(() => {
+    axios.get('http://localhost:3001/tasks')
+     .then(({ data }) => { 
+        console.log(data);
+     })
+     .catch(() => {
+        console.log('algo deu errado');
+      })
+    }, [])
    
   const [task, setTask] = useState("")
   const [itemsList, setItemsList] = useState([])
