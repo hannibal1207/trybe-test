@@ -3,9 +3,9 @@ const { ObjectID } = require('mongodb');
 
 const createList = async (task) => {
   if (!task) return null;
-  // const date = new Date();
+  const date = new Date();
   const db = await connection();
-  const create = db.collection('tasks').insertOne(task);
+  const create = db.collection('tasks').insertOne({ date, task });
   return create ;
 };
 

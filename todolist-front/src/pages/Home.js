@@ -1,53 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Todo() {
-  useEffect(() => {
-    axios.get('http://localhost:3001/tasks')
-     .then(({ data }) => { 
-        console.log(data);
-     })
-     .catch(() => {
-        console.log('algo deu errado');
-      })
-    }, [])
-   
-  const [task, setTask] = useState("")
-  const [itemsList, setItemsList] = useState([])
 
-  function handleChangeInput(event) {
-    const inputTask = event.target.value;
-    setTask(inputTask)
-  };
+  let navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
 
-  function handleAddItemToList(event) {
-    event.preventDefault();
-    if(task) {
-      setItemsList([...itemsList, task]);
-
-      setTask(" ");
-    }
-  }
+  const addTask = (data) => axios.post('http://localhost:3001/tasks', data)
+    .then(() => {
+      console.log('Deu tudo certo');
+      navigate("/")
+    })
+    .catch(() => {
+      console.log('deu ruim');
+    })
 
   return (
     <div>
-      <h1>Todo List</h1>
-      <form>
-        <input type="text" placeholder="Adiciona uma tarefa" onChange={handleChangeInput} value={task} />
-        <button type="submit" onClick={handleAddItemToList}>Adicionar</button>
-      </form>
-      <ul>
-        {itemsList.map(item => 
-          (<li key={item.length}>
-            {item}
-            <div>
-              <button>excluir</button>
-              <button>editar</button>
-            </div>
-          </li>))}
-      </ul>
+      <div>
+        <Link to="/">
+          <button>Ver tarefas</button>
+        </Link>
+      </div>
+      <div>
+        <h1>criar tarefas</h1>
+        <form onSubmit={handleSubmit(addTask)} >
+          <div>
+            <label>Tarefa</label>
+            <input type='text' name="task" {...register('task')} />
+          </div>
+          <div>
+            <button type='submit'>criar</button>
+          </div>
+        </form>
+      </div>
     </div>
-  );
-}
+  )
+};
 
 export default Todo;

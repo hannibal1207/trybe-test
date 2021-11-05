@@ -116,7 +116,7 @@ describe('insere uma nova task no BD', () => {
       await connectionMock.db('todo_list').collection('tasks').deleteMany({});
     });
     it('testa se a task foi excluida', async () => {
-      const response =  await taskModel.deleteTask(FakeId);
+      const response = await taskModel.deleteTask(FakeId);
 
       expect(response.deletedCount).to.be.equal(1);
     });
