@@ -29,13 +29,15 @@ function Task() {
               <div>
                 <header>
                   <h2 key={key}>Tarefa: {data.task}</h2>
-                  <button>Editar</button>
+                  <Link to={{ pathname: `/edit/${data._id}` }}>
+                    <button>Editar</button>
+                  </Link>
                   <button>Excluir</button>
                 </header>
               </div>
            </div>
           )
-        })}
+        }).sort()}
       </div>
     </div>
   )
