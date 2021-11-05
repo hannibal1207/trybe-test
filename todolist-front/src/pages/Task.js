@@ -11,9 +11,17 @@ function Task() {
        setTasks(data);
      })
      .catch(() => {
-       console.log('deu errado')
+       console.log('deu errado');
      })
   }, []);
+
+  const taskDelete = (id) => {
+    axios.delete(`http://localhost:3001/tasks/${id}`);
+     
+    // função para atualizar a pagina quando uma task é excluida
+    setTasks(tasks.filter(task => task._id !== id));
+  };
+
   return (
     <div>
       <div>
@@ -32,12 +40,12 @@ function Task() {
                   <Link to={{ pathname: `/edit/${data._id}` }}>
                     <button>Editar</button>
                   </Link>
-                  <button>Excluir</button>
+                  <button onClick={() => taskDelete(data._id)}>Excluir</button>
                 </header>
               </div>
            </div>
           )
-        }).sort()}
+        })}
       </div>
     </div>
   )
